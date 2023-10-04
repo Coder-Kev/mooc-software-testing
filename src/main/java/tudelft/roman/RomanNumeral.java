@@ -22,13 +22,17 @@ public class RomanNumeral {
 
         int convertedNumber = 0;
         for(int i = 0; i < s.length(); i++) {
-            int currentNumber = map.get(s.charAt(i));
-            int next = i+1 < s.length() ? map.get(s.charAt(i+1)) : 0;
+            char romanChar = s.charAt(i);
+            if (map.containsKey(romanChar)) {
+                int currentNumber = map.get(romanChar);
+                char nextChar = i + 1 < s.length() ? s.charAt(i + 1) : ' ';
+                int nextNumber = map.getOrDefault(nextChar, 0);
 
-            if(currentNumber >= next)
-                convertedNumber += currentNumber;
-            else
-                convertedNumber -= currentNumber;
+                if (currentNumber >= nextNumber)
+                    convertedNumber += currentNumber;
+                else
+                    convertedNumber -= currentNumber;
+            }
         }
 
         return convertedNumber;
